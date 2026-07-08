@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Background &amp; Motivation — BGMAD Tape Casting Machine</title>
+<meta name="description" content="Why this machine exists: from NASICON solid-electrolyte research in a battery lab to the need for an affordable, precise, automated tape caster.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__in">
+    <a class="brand" href="index.html"><span class="brand__tag"></span>BGMAD&nbsp;Coater</a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">≡</button>
+    <nav class="nav" id="nav">
+      <a href="index.html">Overview</a>
+      <a href="background.html" class="active">Background</a>
+      <a href="engineering.html">Engineering</a>
+      <a href="electronics.html">Electronics</a>
+      <a href="manufacturing.html">Manufacturing</a>
+      <a href="results.html">Results</a>
+      <a href="resources.html">Downloads</a>
+      <a href="about.html">Team</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <div class="crumb">PROJECT / <span class="signal">BACKGROUND</span></div>
+    <h1 class="display">Why build a<br>caster at all?</h1>
+    <p class="lead">The machine began as an answer to a very concrete research problem: making good solid-electrolyte films for sodium-ion batteries, cheaply and repeatably.</p>
+  </div>
+</section>
+
+<!-- Origin -->
+<section class="section">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="eyebrow">01 — The origin</span>
+        <h2 class="mt-s">It started in a battery lab.</h2>
+        <div class="prose mt-m">
+          <p>The project grew directly out of work on <strong>NASICON (Na₃Zr₂Si₂PO₁₂)</strong> — a ceramic that conducts sodium ions and is one of the most promising solid electrolytes for next-generation, all-solid-state sodium-ion batteries. Sodium chemistry is attractive because it sidesteps the cost and supply pressure of lithium, using abundant, inexpensive raw materials.</p>
+          <p>To test a solid electrolyte electrochemically, you first need a <em>membrane</em> of it: a thin, uniform, defect-free sheet. In the lab, those sheets were being made by hand — and the results were inconsistent. Thickness varied across a single film, particles settled unevenly, and drying introduced cracks. The variable that mattered most, film uniformity, was the one hardest to control by hand.</p>
+        </div>
+      </div>
+      <div class="figure">
+        <img src="assets/img/tapecasting_schematic.png" alt="Schematic of the tape casting process">
+        <div class="figure__cap"><b>FIG. 01</b> — The doctor-blade tape casting principle</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why sodium / NASICON -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">02 — The stakes</span>
+      <h2 class="mt-s" style="color:#fff">Why solid electrolytes, why sodium.</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card" style="background:var(--panel-2);border-color:var(--line-d)">
+        <span class="card__idx">A</span>
+        <h3 style="color:#fff">Safer by design</h3>
+        <p style="color:#B9C0C9">Replacing the flammable liquid electrolyte of conventional cells with a solid ceramic removes a major fire-and-leak risk and enables denser cell architectures.</p>
+      </div>
+      <div class="card" style="background:var(--panel-2);border-color:var(--line-d)">
+        <span class="card__idx">B</span>
+        <h3 style="color:#fff">Abundant chemistry</h3>
+        <p style="color:#B9C0C9">Sodium is cheap and widely available. A working sodium solid-state cell is a strong candidate for grid-scale storage where lithium’s cost is prohibitive.</p>
+      </div>
+      <div class="card" style="background:var(--panel-2);border-color:var(--line-d)">
+        <span class="card__idx">C</span>
+        <h3 style="color:#fff">Thin is everything</h3>
+        <p style="color:#B9C0C9">Ionic resistance scales with membrane thickness. Getting the solid electrolyte reliably below <span class="signal">100 µm</span> is what makes the cell performant — and that demands casting precision.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The gap -->
+<section class="section">
+  <div class="wrap">
+    <div class="split split--rev">
+      <div>
+        <span class="eyebrow">03 — The gap</span>
+        <h2 class="mt-s">Manual casting vs. a €30k commercial rig.</h2>
+        <div class="prose mt-m">
+          <p>Once the requirement was clear — repeatable sub-100 µm films — the options were stark. Manual drawing couldn’t deliver the consistency. Commercial automated tape casters could, but their cost and closed, proprietary architecture put them well outside an undergraduate project budget and left no room to experiment with the mechanism itself.</p>
+          <p>So the decision was to <strong>build one.</strong> Not a scaled-down toy, but a genuinely capable, open-architecture instrument dimensioned around the real physics of casting NASICON slurry: constant shear rate, controlled bottom-up heat, and micron-scale gap adjustment.</p>
+        </div>
+        <a class="btn btn--ghost mt-m" href="engineering.html">How the physics shaped the design <span class="btn__arrow">→</span></a>
+      </div>
+      <div class="figure">
+        <img src="assets/img/CAD_cizim_goruntusu.jpeg" alt="Technical CAD drawing of the machine">
+        <div class="figure__cap"><b>FIG. 02</b> — Dimensioned technical drawing of the assembly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Physics that drove the design -->
+<section class="section--tight">
+  <div class="wrap">
+    <div class="callout">
+      <div class="callout__k">The governing equation</div>
+      <p>Everything traces back to one relationship — the shear rate the slurry experiences, <strong>γ̇ = v / h</strong>, where <em>v</em> is the blade’s traverse velocity and <em>h</em> is the gap height. Ceramic slurries are shear-thinning and non-Newtonian, so any wobble in <em>v</em> changes the apparent viscosity mid-cast and scatters the film thickness. Holding <em>v</em> perfectly constant, and setting <em>h</em> precisely, is the whole job. The machine is the hardware answer to that equation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="wrap center">
+    <a class="btn" href="engineering.html">Continue to the engineering <span class="btn__arrow">→</span></a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <div class="foot__brand"><span class="brand__tag"></span>BGMAD Coater</div>
+        <p style="max-width:34ch;margin:0">Automated micrometer-adjustable tape casting machine for NASICON solid-electrolyte green tapes. Mechanical Engineering capstone, Boğaziçi University, 2026.</p>
+      </div>
+      <div>
+        <h5>Project</h5>
+        <a href="background.html">Background</a>
+        <a href="engineering.html">Engineering</a>
+        <a href="electronics.html">Electronics</a>
+        <a href="manufacturing.html">Manufacturing</a>
+        <a href="results.html">Results</a>
+      </div>
+      <div>
+        <h5>More</h5>
+        <a href="resources.html">Downloads</a>
+        <a href="about.html">Team &amp; contact</a>
+        <a href="assets/docs/ME492_Report_Group17.pdf" target="_blank" rel="noopener">Full report (PDF)</a>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>© 2026 Buğrahan Güreşçi &amp; Muhammet Ali Doğan</span>
+      <span>Boğaziçi University · Dept. of Mechanical Engineering</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+# BGMAD Coater — Website Kurulum ve Güncelleme Rehberi
+
+Bu klasör, tape casting makinesi projeni tanıtan **çalışır durumda, çok sayfalı bir websitesi**. Hiç kod yazmana gerek yok — sadece dosyaları yayına almayı ve birkaç yeri kendi bilgilerinle değiştirmeyi öğreneceksin.
+
+---
+
+## 0. Önce klasörde ne var?
+
+```
+site/
+├── index.html            → Ana sayfa (Overview)
+├── background.html       → Projenin çıkış noktası (NASICON / batarya labı)
+├── engineering.html      → Tasarım & mühendislik (4 alt-sistem, PDS)
+├── electronics.html      → Elektronik & kontrol (firmware, şema, pinout)
+├── manufacturing.html    → Üretim & maliyet tablosu
+├── results.html          → Sonuçlar & doğrulama
+├── resources.html        → İndirilebilir dosyalar + video alanı
+├── about.html            → Ekip, katkı, iletişim
+└── assets/
+    ├── style.css         → Tüm tasarım burada (renk, font, düzen)
+    ├── favicon.png       → Sekme ikonu
+    ├── img/              → Tüm görseller
+    └── docs/             → Rapor PDF, sunum PDF, firmware .ino
+```
+
+Sekiz sayfanın hepsi birbirine bağlı; üstteki menü her sayfada çalışıyor. Mobilde menü otomatik olarak "≡" butonuna dönüşüyor.
+
+---
+
+## 1. Siteyi bilgisayarında görmek (yayın öncesi)
+
+En basiti: `index.html` dosyasına **çift tıkla**. Tarayıcıda açılır, tıklayarak tüm sayfaları gezebilirsin. Görseller ve PDF'ler de çalışır. İnternete bağlıysan yazı tipleri (Archivo, IBM Plex) de yüklenir; internetsizsen sistem fontuna düşer ama düzen bozulmaz.
+
+> **Not:** Tasarımı gerçek haliyle görmek için Chrome, Edge, Safari veya Firefox kullan. Sitedeki modern düzen (grid, blur, mikron göstergeleri) güncel tarayıcılarda tam görünür.
+
+---
+
+## 2. GitHub Pages ile ücretsiz yayına alma
+
+GitHub Pages statik siteleri **ücretsiz ve süresiz** barındırır. Adım adım:
+
+### Adım 1 — GitHub hesabı aç
+1. [github.com](https://github.com) → **Sign up**.
+2. Kullanıcı adını profesyonel seç (örn. `bugrahanguresci` veya `bguresci`). Bu isim site adresinin bir parçası olacak.
+
+### Adım 2 — Repository (depo) oluştur
+1. Sağ üstteki **+** → **New repository**.
+2. **Repository name** alanına tam olarak şunu yaz: `KULLANICIADIN.github.io`
+   (Örneğin kullanıcı adın `bguresci` ise: `bguresci.github.io`)
+3. **Public** seçili olsun. Alttaki kutuları boş bırak, **Create repository**.
+
+### Adım 3 — Dosyaları yükle
+1. Yeni açılan depo sayfasında **"uploading an existing file"** linkine tıkla
+   (ya da **Add file → Upload files**).
+2. Bu klasörün **içindeki her şeyi** (index.html, diğer .html'ler ve `assets` klasörü) sürükleyip bırak.
+   - **ÖNEMLİ:** `site` klasörünü değil, klasörün *içindekileri* yükle. `index.html` deponun kök dizininde olmalı.
+   - `assets` klasörünü de sürükle; GitHub içindeki alt klasörleri korur.
+3. Aşağıda **Commit changes** butonuna bas.
+
+### Adım 4 — Pages'i aç
+1. Depoda üstteki **Settings** sekmesi → sol menüden **Pages**.
+2. **Source** kısmında **Deploy from a branch** seçili olsun.
+3. **Branch**: `main` seç, klasör `/ (root)` kalsın, **Save**.
+4. 1–3 dakika bekle. Sayfayı yenile; üstte yeşil bir kutuda şu adres çıkar:
+   **`https://KULLANICIADIN.github.io`**
+
+Bu kadar. Site yayında. Linki CV'ne ve LinkedIn'e koyabilirsin.
+
+---
+
+## 3. Yayından ÖNCE değiştirmen gereken yerler
+
+Sitede senin bilgilerinle doldurulması gereken **birkaç placeholder** bıraktım. Her birini bir metin editörüyle (Not Defteri, VS Code, TextEdit) açıp değiştir:
+
+### a) İletişim bilgileri → `about.html`
+Dosyanın sonuna doğru şu satırları bul ve `#` / örnek adresleri kendi bilgilerinle değiştir:
+```html
+<a class="btn" href="mailto:your.email@example.com">Email me</a>
+<a class="btn btn--ghost" href="#" ...>LinkedIn</a>
+<a class="btn btn--ghost" href="#" ...>Download CV (PDF)</a>
+```
+- `your.email@example.com` → kendi e-postan
+- İlk `#` → LinkedIn profil linkin (örn. `https://linkedin.com/in/...`)
+- İkinci `#` → CV'nin linki (aşağıda CV eklemeyi anlatıyorum)
+
+### b) CV ekleme
+1. CV'ni PDF olarak `assets/docs/` klasörüne koy (örn. `assets/docs/CV_Bugrahan_Guresci.pdf`).
+2. `about.html`'de CV butonunun `href="#"` kısmını `href="assets/docs/CV_Bugrahan_Guresci.pdf"` yap.
+
+### c) Video ekleme → `resources.html`
+1. Videonu YouTube'a yükle (istersen **"Unlisted / Liste dışı"** seç — sadece link bilenler görür).
+2. YouTube'da video → **Paylaş → Yerleştir (Embed)** → kopyalanan `<iframe ...>` kodunu al.
+3. `resources.html`'de `[ VIDEO PLACEHOLDER ]` yazan `<div>...</div>` bloğunun tamamını sil, yerine iframe'i yapıştır. Şöyle sarmalarsan responsive olur:
+```html
+<div style="margin-top:26px;position:relative;padding-top:56.25%;border-radius:3px;overflow:hidden">
+  <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+    style="position:absolute;inset:0;width:100%;height:100%;border:0"
+    allowfullscreen title="Demonstration"></iframe>
+</div>
+```
+(`VIDEO_ID` yerine YouTube linkindeki video kimliğini yaz.)
+
+### d) İsim doğrulaması
+Her sayfanın altındaki footer'da ve `about.html`'de isimler **Buğrahan Güreşçi & Muhammet Ali Doğan** olarak yazılı. Yanlışsa düzelt. `about.html`'deki katkı bölümünde (Role A / Role B) rolleri raporundaki role dağılımına göre yerleştirdim — kendi katkını daha net vurgulamak istersen bu iki kartın metnini serbestçe düzenle.
+
+### e) (Opsiyonel) GitHub kod deposu linki → `resources.html`
+Firmware kodunu ayrı bir public repo'ya koyarsan, "Source code" callout'undaki metne repo linkini ekle. Bu, "kod yazıyorum ve versiyon kontrolü kullanıyorum" sinyali verir — mekatronik/gömülü pozisyonlarda artı.
+
+---
+
+## 4. Kendi domain'ini bağlama (opsiyonel, ücretli)
+
+`KULLANICIADIN.github.io` yerine `bugrahanguresci.com` gibi bir adres istersen:
+
+1. Bir sağlayıcıdan domain al (Natro, Turhost, İsimtescil...). Fiyat: `.com` ilk yıl ~150–250 TL, yenileme ~350–550 TL/yıl; `.com.tr` ~120–200 TL/yıl.
+2. GitHub'ın güncel Pages IP adreslerini domain panelinde **A kaydı** olarak, `www` için **CNAME** olarak gir (GitHub'ın Pages dokümanında güncel IP listesi var; o an birlikte bakabiliriz).
+3. Depo → **Settings → Pages → Custom domain** alanına domain adını yaz, **Save**. "Enforce HTTPS"i işaretle.
+
+Domain zorunlu değil — `.github.io` adresi de CV'de gayet profesyonel durur, sonradan da eklenebilir.
+
+---
+
+## 5. Yayından SONRA içerik güncelleme
+
+Bir yazıyı/görseli değiştirmek istediğinde iki yol var:
+
+- **Kolay yol (tarayıcıdan):** GitHub'da depoda ilgili dosyaya tıkla → sağ üstteki **kalem (✏️) ikonu** → düzenle → **Commit changes**. Site birkaç dakikada güncellenir.
+- **Yeni görsel eklemek:** `assets/img/` klasörüne yükle, sonra ilgili `.html`'de `<img src="assets/img/DOSYA_ADI">` satırını ekle/değiştir.
+
+### Renk veya font değiştirmek
+Tüm tasarım `assets/style.css` dosyasının en başındaki `:root{...}` bloğunda tanımlı. Örneğin amber vurgu rengini değiştirmek için `--signal:#E08A00;` satırındaki hex kodunu değiştir; tüm sitede otomatik güncellenir.
+
+---
+
+## 6. Tasarım hakkında kısa not
+
+Site bilinçli olarak bir **hassas ölçüm cihazı / metroloji** estetiğiyle tasarlandı: grafit + teknik beyaz zemin, mühendislik çizimi etiketleri, ve sadece "canlı ölçüm" değerlerinde (mikron, sıcaklık, süre) kullanılan tek bir **amber sinyal rengi** — PID ısıtıcı göstergesine bir gönderme. Amaç, sıradan portfolyo şablonlarından ayrışıp projenin mühendislik ciddiyetini yansıtmak.
+
+---
+
+## Sıradaki adım
+
+Site şu an tam çalışır durumda. Placeholder'ları (iletişim, CV, video) doldurup GitHub Pages'e yükleyince yayında olacak. Bundan sonra istediğimiz zaman birlikte:
+- yeni bölüm/sayfa ekleyebiliriz,
+- gerçek fotoğraf ve videolarla zenginleştirebiliriz,
+- İngilizce metinleri istediğin tona çekebiliriz,
+- ayrı bir "publications/notes" bölümü açabiliriz.
+
+Ne değiştirmek istersen söyle, üzerine gidelim.
