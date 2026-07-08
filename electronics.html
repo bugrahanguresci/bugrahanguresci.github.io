@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Team &amp; Contact — BGMAD Tape Casting Machine</title>
-<meta name="description" content="The team behind the automated tape casting machine, individual contributions, project management, acknowledgements, and contact details.">
-<link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="stylesheet" href="assets/style.css">
+<title>Electronics &amp; Control — BGMAD Tape Casting Machine</title>
+<meta name="description" content="Electrical architecture, the 220V protective cascade, PID heat control, and the four-state Arduino finite-state machine that runs the casting cycle.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -18,105 +18,138 @@
       <a href="index.html">Overview</a>
       <a href="background.html">Background</a>
       <a href="engineering.html">Engineering</a>
-      <a href="electronics.html">Electronics</a>
+      <a href="electronics.html" class="active">Electronics</a>
       <a href="manufacturing.html">Manufacturing</a>
       <a href="results.html">Results</a>
       <a href="resources.html">Downloads</a>
-      <a href="about.html" class="active">Team</a>
+      <a href="about.html">Team</a>
     </nav>
   </div>
 </header>
 
 <section class="pagehead">
   <div class="wrap">
-    <div class="crumb">PROJECT / <span class="signal">TEAM</span></div>
-    <h1 class="display">Team &amp;<br>contact</h1>
-    <p class="lead">A two-person, multidisciplinary capstone — mechanical design, mechatronics, control, and process modelling under one roof.</p>
+    <div class="crumb">PROJECT / <span class="signal">ELECTRONICS</span></div>
+    <h1 class="display">Electronics<br>&amp; control</h1>
+    <p class="lead">An isolated 220 V power cascade, PID-regulated heating, and an Arduino finite-state machine that turns a potentiometer and two buttons into a deterministic casting cycle.</p>
   </div>
 </section>
 
-<!-- ROLES -->
+<!-- ELECTRICAL ARCHITECTURE -->
 <section class="section">
-  <div class="wrap">
-    <span class="eyebrow">01 — Who did what</span>
-    <h2 class="mt-s">Divided by domain, integrated as a system.</h2>
-    <p class="lead mt-s">Both members shared the conceptualization, literature review, general assembly, and final report. Primary responsibilities split along technical lines:</p>
-    <div class="grid grid-2 mt-m">
-      <div class="card">
-        <span class="card__idx">ROLE A</span>
-        <h3>Buğrahan Güreşçi</h3>
-        <p class="mono" style="font-size:13px;color:var(--signal);margin:0 0 6px">MECHATRONICS · CONTROLS · THERMODYNAMICS</p>
-        <p>Electrical architecture and the 220 V protective cascade; the Arduino finite-state-machine firmware; and the thermodynamic analyses — drying kinetics, convective mass transfer of the extraction fans, and the fluid-dynamics modelling behind the blade-gap window.</p>
-      </div>
-      <div class="card">
-        <span class="card__idx">ROLE B</span>
-        <h3>Muhammet Ali Doğan</h3>
-        <p class="mono" style="font-size:13px;color:var(--ink-3);margin:0 0 6px">MECHANICAL DESIGN · MANUFACTURING</p>
-        <p>CAD modelling of the subsystems and the physical workshop fabrication of the custom aluminium and stainless components — CNC milling the vacuum chuck and machining the doctor blade among them.</p>
-      </div>
-    </div>
-    <div class="callout mt-m">
-      <div class="callout__k">Integration</div>
-      <p>Final system integration, troubleshooting, and the ME 492 report were executed collaboratively. The project demanded balancing thermodynamics, fluid kinematics, and mechatronic safety simultaneously — a systems-engineering exercise where optimising one subsystem in isolation could compromise the whole machine.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECT MANAGEMENT -->
-<section class="section dark">
   <div class="wrap">
     <div class="split">
       <div>
-        <span class="eyebrow">02 — Project management</span>
-        <h2 class="mt-s" style="color:#fff">Three milestones, all realised.</h2>
-        <div class="steps mt-m" style="border-color:var(--line-d)">
+        <span class="eyebrow">01 — Electrical architecture</span>
+        <h2 class="mt-s">Two worlds, kept apart.</h2>
+        <div class="prose mt-m">
+          <p>The system runs two electrically separate domains: a <strong>220 V AC side</strong> feeding the mica heater through a solid-state relay, and a <strong>low-voltage DC side</strong> (an ATX supply delivering +12 V and +5 V) powering the logic, the stepper driver, and the fans.</p>
+          <p>Mains enters through an IEC inlet with an integrated EMI filter, passes a 16 A circuit breaker and mechanical KCD phase-breaking switches, and only then reaches the heater loop. This protective cascade keeps the operator isolated from the AC path and prevents electrical noise from corrupting the control signals.</p>
+        </div>
+        <div class="tags mt-m">
+          <span class="tag">ATX +12V / +5V</span>
+          <span class="tag">SSR heater switching</span>
+          <span class="tag">16 A breaker</span>
+          <span class="tag">EMI-filtered inlet</span>
+          <span class="tag">KCD isolation</span>
+        </div>
+      </div>
+      <div class="figure">
+        <img src="electrical_schematic.png" alt="Electrical schematic of the system">
+        <div class="figure__cap"><b>FIG. 01</b> — Full electrical schematic (Appendix E of the report)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PID -->
+<section class="section--tight">
+  <div class="wrap">
+    <div class="callout">
+      <div class="callout__k">Heat control</div>
+      <p>Bed temperature is closed-loop regulated by an <strong>Inkbird ITC-100VH PID controller</strong> reading a K-type thermocouple and switching the 800 W mica heater through a solid-state relay. The thermocouple sits at the plate edge, which reads slightly cooler than the centre; the offset is corrected in the PID configuration so the coating surface holds its true setpoint.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FIRMWARE FSM -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">02 — Firmware</span>
+      <h2 class="mt-s" style="color:#fff">A four-state machine.</h2>
+      <p class="lead">The casting cycle is modelled as a finite-state machine — the structure that finally eliminated the motor stutter of earlier versions and made every run deterministic and repeatable.</p>
+    </div>
+    <div class="split">
+      <div>
+        <div class="steps">
           <div class="step">
-            <h4 style="color:#fff">Design freeze</h4>
-            <p style="color:#B9C0C9">All theoretical calculations, 3D CAD models, and the Bill of Materials finalised — first month of the spring term.</p>
+            <h4 style="color:#fff">Idle — waiting for start</h4>
+            <p style="color:#B9C0C9">The motor is disabled and silent. The LCD shows the live speed the operator dials in on the potentiometer. Nothing moves until the start button is pressed with a non-zero speed.</p>
           </div>
           <div class="step">
-            <h4 style="color:#fff">Subsystem fabrication complete</h4>
-            <p style="color:#B9C0C9">Bimetallic chuck, U-frame, and enclosure machined and verified against dimensional tolerances — mid-term.</p>
+            <h4 style="color:#fff">Coating — forward stroke</h4>
+            <p style="color:#B9C0C9">On start, the chosen velocity is <em>locked</em> — frozen from the potentiometer so it can’t drift mid-cast. The carriage drives forward at that constant speed until it trips the end limit switch. The LCD is intentionally not refreshed here, to avoid injecting stutter into the motor timing.</p>
           </div>
           <div class="step">
-            <h4 style="color:#fff">Full system integration</h4>
-            <p style="color:#B9C0C9">Mechanical, electrical, and pneumatic systems assembled into a single unit executing a stutter-free casting cycle — late term.</p>
+            <h4 style="color:#fff">End hold</h4>
+            <p style="color:#B9C0C9">Casting complete. The motor is released and the display prompts for a reset — a clean, unambiguous stopping point.</p>
+          </div>
+          <div class="step">
+            <h4 style="color:#fff">Return — home</h4>
+            <p style="color:#B9C0C9">On reset, the carriage reverses at a fixed 45 mm/s back to the home limit switch, then loops to Idle, ready for the next cast.</p>
           </div>
         </div>
       </div>
       <div class="figure">
-        <img src="assets/img/Gant_chart.png" alt="Project Gantt chart">
-        <div class="figure__cap"><b>FIG. 01</b> — Project schedule (Gantt chart)</div>
+        <img src="firmware_state_machine.png" alt="Firmware finite-state machine diagram">
+        <div class="figure__cap"><b>FIG. 02</b> — Firmware finite-state machine (Appendix D)</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ACKNOWLEDGEMENTS -->
-<section class="section--tight">
-  <div class="wrap">
-    <span class="eyebrow">03 — Acknowledgements</span>
-    <h3 class="mt-s">Made possible by</h3>
-    <div class="prose mt-s">
-      <p>Boğaziçi University’s Department of Mechanical Engineering and its Design Workshop provided facilities, equipment access, and workshop time. Industry partners contributed critical machining and components free of charge: <strong>ERK Rezistans</strong> (mica heater, CNC and EDM operations), <strong>Güveniş Makine</strong> (machining), <strong>NOTA Entegre Ahşap Orman Ürünleri</strong> (MDF base), and <strong>Selamet</strong> and <strong>Osman Bey</strong> (miscellaneous parts and fabrication). Their support was decisive in bringing the prototype to completion.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
+<!-- SPEED CONTROL + PINOUT -->
 <section class="section">
   <div class="wrap">
-    <div class="cta">
-      <span class="eyebrow" style="justify-content:center;color:#8B95A0">Contact</span>
-      <h2 class="mt-s">Let’s talk.</h2>
-      <p class="lead">Open to opportunities in advanced manufacturing, mechatronics, and solid-state energy systems.</p>
-      <!-- REPLACE the href values below with your real email, LinkedIn and CV link. -->
-      <div class="btnrow">
-        <a class="btn" href="mailto:your.email@example.com">Email me</a>
-        <a class="btn btn--ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn--ghost" href="#" target="_blank" rel="noopener">Download CV (PDF)</a>
+    <div class="split">
+      <div>
+        <span class="eyebrow">03 — Speed control</span>
+        <h2 class="mt-s">Locked at the trigger.</h2>
+        <div class="prose mt-m">
+          <p>Traverse speed is read from a potentiometer over a <code>0–45 mm/s</code> range and converted to a step delay by a simple system constant: <strong>step delay (µs) = 3333 / velocity</strong> at 1600 microsteps. A hysteresis filter ignores changes smaller than a few ADC counts, so electrical noise can’t make the speed jitter.</p>
+          <p>Crucially, the value is <strong>latched at the start-button press</strong> and held for the entire forward stroke. This is the software half of the constant-shear guarantee: the operator physically cannot nudge the speed mid-cast.</p>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">04 — I/O map</span>
+        <h3 class="mt-s">Pin assignment</h3>
+        <div class="speclist mt-s">
+          <div class="speclist__row"><div class="speclist__k">Stepper</div><div class="speclist__v"><code>D9</code> step · <code>D13</code> dir · <code>D7</code> enable</div></div>
+          <div class="speclist__row"><div class="speclist__k">Speed input</div><div class="speclist__v"><code>A0</code> potentiometer</div></div>
+          <div class="speclist__row"><div class="speclist__k">Limit switches</div><div class="speclist__v"><code>D3</code> home · <code>D2</code> end</div></div>
+          <div class="speclist__row"><div class="speclist__k">Buttons</div><div class="speclist__v"><code>D4</code> start · <code>D5</code> reset</div></div>
+          <div class="speclist__row"><div class="speclist__k">Display</div><div class="speclist__v">16×2 LCD, parallel 4-bit (<code>rs 12 · en 11 · d4 10 · d5 6 · d6 A1 · d7 A2</code>)</div></div>
+        </div>
+        <a class="btn btn--ghost mt-m" href="tape_casting_firmware_v4.ino" download>Download firmware (.ino) <span class="btn__arrow">↓</span></a>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- SAFETY-CRITICAL -->
+<section class="section--tight">
+  <div class="wrap">
+    <div class="callout">
+      <div class="callout__k">Safety-critical finding</div>
+      <p>The drying analysis carried a warning into the electronics: without active ventilation, the sealed chamber would exceed the <strong>lower explosive limit for ethanol vapour in about 90 seconds.</strong> That reclassified the lid fans from a comfort feature to a safety-critical extraction system — one of the project’s defining systems-engineering lessons, since an isolated subsystem view had first treated them as merely thermal.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="wrap center">
+    <a class="btn" href="manufacturing.html">Next: manufacturing &amp; cost <span class="btn__arrow">→</span></a>
   </div>
 </section>
 
@@ -139,7 +172,7 @@
         <h5>More</h5>
         <a href="resources.html">Downloads</a>
         <a href="about.html">Team &amp; contact</a>
-        <a href="assets/docs/ME492_Report_Group17.pdf" target="_blank" rel="noopener">Full report (PDF)</a>
+        <a href="ME492_Report_Group17.pdf" target="_blank" rel="noopener">Full report (PDF)</a>
       </div>
     </div>
     <div class="foot__bar">

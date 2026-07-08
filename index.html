@@ -1,149 +1,235 @@
-# BGMAD Coater — Website Kurulum ve Güncelleme Rehberi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BGMAD Tape Casting Machine — Automated Micrometer-Adjustable Coater</title>
+<meta name="description" content="An automated, micrometer-adjustable doctor-blade tape casting machine built to produce NASICON solid-electrolyte green tapes for all-solid-state sodium-ion batteries. Boğaziçi University ME 492 capstone.">
+<meta property="og:title" content="Automated Micrometer-Adjustable Tape Casting Machine">
+<meta property="og:description" content="A precision mechatronic coater for NASICON solid-electrolyte green tapes — Boğaziçi University mechanical engineering capstone.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="CAD_goruntusu_casing.jpeg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-Bu klasör, tape casting makinesi projeni tanıtan **çalışır durumda, çok sayfalı bir websitesi**. Hiç kod yazmana gerek yok — sadece dosyaları yayına almayı ve birkaç yeri kendi bilgilerinle değiştirmeyi öğreneceksin.
+<!-- ============ HEADER ============ -->
+<header class="masthead">
+  <div class="masthead__in">
+    <a class="brand" href="index.html"><span class="brand__tag"></span>BGMAD&nbsp;Coater</a>
+    <button class="navtoggle" aria-label="Menu" onclick="document.getElementById('nav').classList.toggle('open')">≡</button>
+    <nav class="nav" id="nav">
+      <a href="index.html" class="active">Overview</a>
+      <a href="background.html">Background</a>
+      <a href="engineering.html">Engineering</a>
+      <a href="electronics.html">Electronics</a>
+      <a href="manufacturing.html">Manufacturing</a>
+      <a href="results.html">Results</a>
+      <a href="resources.html">Downloads</a>
+      <a href="about.html">Team</a>
+    </nav>
+  </div>
+</header>
 
----
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero__grid"></div>
+  <div class="hero__in">
+    <div>
+      <span class="eyebrow hero__eyebrow">ME 492 Capstone · Boğaziçi University</span>
+      <h1 class="display">Automated<br>Tape Casting<br>Machine</h1>
+      <p class="hero__sub">Micrometer-adjustable doctor-blade coater · heated vacuum chuck · forced-convection drying</p>
+      <p class="lead">A precision mechatronic instrument designed and built from the ground up to cast <strong style="color:#fff">NASICON solid-electrolyte green tapes</strong> for all-solid-state sodium-ion batteries — replacing error-prone manual casting with constant-shear automation and micron-level thickness control.</p>
+      <div class="btnrow">
+        <a class="btn" href="engineering.html">Explore the engineering <span class="btn__arrow">→</span></a>
+        <a class="btn btn--ghost" href="ME492_Report_Group17.pdf" target="_blank" rel="noopener">Read the full report (PDF)</a>
+      </div>
+    </div>
+    <figure class="hero__figure">
+      <img src="CAD_goruntusu_casing.jpeg" alt="CAD render of the tape casting machine enclosure">
+      <figcaption class="hero__figcap">FIG. 01 — Full-assembly CAD model, enclosed configuration</figcaption>
+    </figure>
+  </div>
+</section>
 
-## 0. Önce klasörde ne var?
-
-```
-site/
-├── index.html            → Ana sayfa (Overview)
-├── background.html       → Projenin çıkış noktası (NASICON / batarya labı)
-├── engineering.html      → Tasarım & mühendislik (4 alt-sistem, PDS)
-├── electronics.html      → Elektronik & kontrol (firmware, şema, pinout)
-├── manufacturing.html    → Üretim & maliyet tablosu
-├── results.html          → Sonuçlar & doğrulama
-├── resources.html        → İndirilebilir dosyalar + video alanı
-├── about.html            → Ekip, katkı, iletişim
-└── assets/
-    ├── style.css         → Tüm tasarım burada (renk, font, düzen)
-    ├── favicon.png       → Sekme ikonu
-    ├── img/              → Tüm görseller
-    └── docs/             → Rapor PDF, sunum PDF, firmware .ino
-```
-
-Sekiz sayfanın hepsi birbirine bağlı; üstteki menü her sayfada çalışıyor. Mobilde menü otomatik olarak "≡" butonuna dönüşüyor.
-
----
-
-## 1. Siteyi bilgisayarında görmek (yayın öncesi)
-
-En basiti: `index.html` dosyasına **çift tıkla**. Tarayıcıda açılır, tıklayarak tüm sayfaları gezebilirsin. Görseller ve PDF'ler de çalışır. İnternete bağlıysan yazı tipleri (Archivo, IBM Plex) de yüklenir; internetsizsen sistem fontuna düşer ama düzen bozulmaz.
-
-> **Not:** Tasarımı gerçek haliyle görmek için Chrome, Edge, Safari veya Firefox kullan. Sitedeki modern düzen (grid, blur, mikron göstergeleri) güncel tarayıcılarda tam görünür.
-
----
-
-## 2. GitHub Pages ile ücretsiz yayına alma
-
-GitHub Pages statik siteleri **ücretsiz ve süresiz** barındırır. Adım adım:
-
-### Adım 1 — GitHub hesabı aç
-1. [github.com](https://github.com) → **Sign up**.
-2. Kullanıcı adını profesyonel seç (örn. `bugrahanguresci` veya `bguresci`). Bu isim site adresinin bir parçası olacak.
-
-### Adım 2 — Repository (depo) oluştur
-1. Sağ üstteki **+** → **New repository**.
-2. **Repository name** alanına tam olarak şunu yaz: `KULLANICIADIN.github.io`
-   (Örneğin kullanıcı adın `bguresci` ise: `bguresci.github.io`)
-3. **Public** seçili olsun. Alttaki kutuları boş bırak, **Create repository**.
-
-### Adım 3 — Dosyaları yükle
-1. Yeni açılan depo sayfasında **"uploading an existing file"** linkine tıkla
-   (ya da **Add file → Upload files**).
-2. Bu klasörün **içindeki her şeyi** (index.html, diğer .html'ler ve `assets` klasörü) sürükleyip bırak.
-   - **ÖNEMLİ:** `site` klasörünü değil, klasörün *içindekileri* yükle. `index.html` deponun kök dizininde olmalı.
-   - `assets` klasörünü de sürükle; GitHub içindeki alt klasörleri korur.
-3. Aşağıda **Commit changes** butonuna bas.
-
-### Adım 4 — Pages'i aç
-1. Depoda üstteki **Settings** sekmesi → sol menüden **Pages**.
-2. **Source** kısmında **Deploy from a branch** seçili olsun.
-3. **Branch**: `main` seç, klasör `/ (root)` kalsın, **Save**.
-4. 1–3 dakika bekle. Sayfayı yenile; üstte yeşil bir kutuda şu adres çıkar:
-   **`https://KULLANICIADIN.github.io`**
-
-Bu kadar. Site yayında. Linki CV'ne ve LinkedIn'e koyabilirsin.
-
----
-
-## 3. Yayından ÖNCE değiştirmen gereken yerler
-
-Sitede senin bilgilerinle doldurulması gereken **birkaç placeholder** bıraktım. Her birini bir metin editörüyle (Not Defteri, VS Code, TextEdit) açıp değiştir:
-
-### a) İletişim bilgileri → `about.html`
-Dosyanın sonuna doğru şu satırları bul ve `#` / örnek adresleri kendi bilgilerinle değiştir:
-```html
-<a class="btn" href="mailto:your.email@example.com">Email me</a>
-<a class="btn btn--ghost" href="#" ...>LinkedIn</a>
-<a class="btn btn--ghost" href="#" ...>Download CV (PDF)</a>
-```
-- `your.email@example.com` → kendi e-postan
-- İlk `#` → LinkedIn profil linkin (örn. `https://linkedin.com/in/...`)
-- İkinci `#` → CV'nin linki (aşağıda CV eklemeyi anlatıyorum)
-
-### b) CV ekleme
-1. CV'ni PDF olarak `assets/docs/` klasörüne koy (örn. `assets/docs/CV_Bugrahan_Guresci.pdf`).
-2. `about.html`'de CV butonunun `href="#"` kısmını `href="assets/docs/CV_Bugrahan_Guresci.pdf"` yap.
-
-### c) Video ekleme → `resources.html`
-1. Videonu YouTube'a yükle (istersen **"Unlisted / Liste dışı"** seç — sadece link bilenler görür).
-2. YouTube'da video → **Paylaş → Yerleştir (Embed)** → kopyalanan `<iframe ...>` kodunu al.
-3. `resources.html`'de `[ VIDEO PLACEHOLDER ]` yazan `<div>...</div>` bloğunun tamamını sil, yerine iframe'i yapıştır. Şöyle sarmalarsan responsive olur:
-```html
-<div style="margin-top:26px;position:relative;padding-top:56.25%;border-radius:3px;overflow:hidden">
-  <iframe src="https://www.youtube.com/embed/VIDEO_ID"
-    style="position:absolute;inset:0;width:100%;height:100%;border:0"
-    allowfullscreen title="Demonstration"></iframe>
+<!-- ============ SPEC PLATE ============ -->
+<div class="specplate">
+  <div class="specplate__in">
+    <div class="spec">
+      <div class="spec__k">Traverse velocity</div>
+      <div class="spec__v">2–45<span class="spec__u">mm/s</span></div>
+    </div>
+    <div class="spec">
+      <div class="spec__k">Gap resolution</div>
+      <div class="spec__v"><em>10</em><span class="spec__u">µm</span></div>
+    </div>
+    <div class="spec">
+      <div class="spec__k">Bed temperature</div>
+      <div class="spec__v">≤120<span class="spec__u">°C</span></div>
+    </div>
+    <div class="spec">
+      <div class="spec__k">Target membrane</div>
+      <div class="spec__v"><em>&lt;100</em><span class="spec__u">µm</span></div>
+    </div>
+  </div>
 </div>
-```
-(`VIDEO_ID` yerine YouTube linkindeki video kimliğini yaz.)
 
-### d) İsim doğrulaması
-Her sayfanın altındaki footer'da ve `about.html`'de isimler **Buğrahan Güreşçi & Muhammet Ali Doğan** olarak yazılı. Yanlışsa düzelt. `about.html`'deki katkı bölümünde (Role A / Role B) rolleri raporundaki role dağılımına göre yerleştirdim — kendi katkını daha net vurgulamak istersen bu iki kartın metnini serbestçe düzenle.
+<!-- ============ WHAT IT IS ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="eyebrow">01 — The machine</span>
+        <h2 class="mt-s">A laboratory instrument, not a lab hack.</h2>
+        <div class="prose mt-m">
+          <p>Tape casting is how ceramic and battery films are made: a blade meters a liquid <em>slurry</em> into a thin, uniform layer that dries into a flexible “green tape.” Done by hand, the pulling speed wobbles, the film thickness scatters, and defects appear. Commercial automated casters solve this — at a price that puts them out of reach for most research labs.</p>
+          <p>This project closes that gap. It is an <strong>open-architecture, fully automated caster</strong> that holds a constant casting speed, adjusts the blade gap in 10 µm steps, and heats the substrate from below through a custom vacuum chuck — all built for a fraction of commercial cost using accessible components and university workshop machining.</p>
+        </div>
+        <div class="tags mt-m">
+          <span class="tag">Mechanical design</span>
+          <span class="tag">Mechatronics</span>
+          <span class="tag">Embedded firmware</span>
+          <span class="tag">Thermal analysis</span>
+          <span class="tag">Fluid dynamics</span>
+          <span class="tag">Precision machining</span>
+        </div>
+      </div>
+      <div class="figure">
+        <img src="enclosure_assembly.jpeg" alt="Photograph of the assembled machine">
+        <div class="figure__cap"><b>FIG. 02</b> — Assembled prototype, drive and enclosure integrated</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-### e) (Opsiyonel) GitHub kod deposu linki → `resources.html`
-Firmware kodunu ayrı bir public repo'ya koyarsan, "Source code" callout'undaki metne repo linkini ekle. Bu, "kod yazıyorum ve versiyon kontrolü kullanıyorum" sinyali verir — mekatronik/gömülü pozisyonlarda artı.
+<!-- ============ SUBSYSTEMS ============ -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">02 — Four engineered subsystems</span>
+      <h2 class="mt-s" style="color:#fff">Every subsystem solves a specific failure mode.</h2>
+      <p class="lead">The design didn’t start from a parts list — it started from the physics of what goes wrong when you cast a film, and worked backward to the hardware that prevents it.</p>
+    </div>
+    <div class="grid grid-4">
+      <a class="card card--link" href="engineering.html#drive">
+        <span class="card__idx">S-01</span>
+        <h3>Linear drive</h3>
+        <p>NEMA 23 stepper on twin MGN12 rails and dual T8 screws holds a stutter-free, constant traverse — killing the velocity swings that ruin manual casts.</p>
+        <span class="card__more">Kinematics →</span>
+      </a>
+      <a class="card card--link" href="engineering.html#blade">
+        <span class="card__idx">S-02</span>
+        <h3>Doctor blade</h3>
+        <p>150 mm blade with a chamfered metering land and twin micrometer heads for ±10 µm gap control — the knob that sets film thickness.</p>
+        <span class="card__more">Blade physics →</span>
+      </a>
+      <a class="card card--link" href="engineering.html#chuck">
+        <span class="card__idx">S-03</span>
+        <h3>Heated vacuum chuck</h3>
+        <p>Bimetallic aluminium plate with 117 EDM-drilled micro-holes clamps the carrier flat while heating it evenly from below.</p>
+        <span class="card__more">Thermal design →</span>
+      </a>
+      <a class="card card--link" href="electronics.html">
+        <span class="card__idx">S-04</span>
+        <h3>Control &amp; safety</h3>
+        <p>Arduino finite-state machine, PID heat control, and a fully isolated 220 V protective cascade with EMI-filtered entry.</p>
+        <span class="card__more">Electronics →</span>
+      </a>
+    </div>
+  </div>
+</section>
 
----
+<!-- ============ HEADLINE RESULTS ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow">03 — What it achieved</span>
+      <h2 class="mt-s">A working prototype — validated, not just assembled.</h2>
+    </div>
+    <div class="dimset">
+      <div class="dim">
+        <div class="dim__label">Casting window</div>
+        <div class="dim__val">0.20–0.55<span class="u">mm</span></div>
+        <div class="dim__note">Usable blade-gap band for 100–300 µm wet films, from the reduced-order hydrodynamic model.</div>
+      </div>
+      <div class="dim">
+        <div class="dim__label">Thermal uniformity</div>
+        <div class="dim__val">&lt;0.5<span class="u">°C</span></div>
+        <div class="dim__note">Peak-to-valley surface non-uniformity across the working area, confirmed by simulation and calibration.</div>
+      </div>
+      <div class="dim">
+        <div class="dim__label">Drying to completion</div>
+        <div class="dim__val is-signal">~400<span class="u">s</span></div>
+        <div class="dim__note">With forced convection; the sealed chamber otherwise stalls at ~24% residual solvent indefinitely.</div>
+      </div>
+      <div class="dim">
+        <div class="dim__label">Out-of-pocket cost</div>
+        <div class="dim__val">3,240<span class="u">TL</span></div>
+        <div class="dim__note">Team spend against a 34,392 TL list-price build — bridged by institutional and industry support.</div>
+      </div>
+    </div>
+    <div class="split mt-l">
+      <div class="figure">
+        <img src="250mikron_casting.jpeg" alt="Cast NASICON green tape sample">
+        <div class="figure__cap"><b>FIG. 03</b> — Physical casting trial, wet film on carrier substrate</div>
+      </div>
+      <div>
+        <h3>From model to material.</h3>
+        <div class="prose mt-s">
+          <p>Direct timing experiments confirmed no measurable deviation between the predicted and observed carriage speeds. The four-state firmware produced deterministic, repeatable cycles and eliminated the motor stutter that plagued earlier prototype versions.</p>
+          <p>A velocity-sensitivity analysis showed that a 5% speed fluctuation introduces thickness errors above <span class="signal">±5 µm</span> at low traverse rates — quantitatively justifying the microstepping drive as the mechanism that suppresses the dominant source of thickness scatter.</p>
+        </div>
+        <a class="btn btn--ghost mt-m" href="results.html">See the full results <span class="btn__arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-## 4. Kendi domain'ini bağlama (opsiyonel, ücretli)
+<!-- ============ CTA ============ -->
+<section class="section--tight">
+  <div class="wrap">
+    <div class="cta">
+      <span class="eyebrow" style="justify-content:center;color:#8B95A0">Documentation</span>
+      <h2 class="mt-s">Everything is documented and downloadable.</h2>
+      <p class="lead">The full LaTeX report, the presentation deck, the Arduino firmware, schematics and the complete cost breakdown are all available.</p>
+      <div class="btnrow">
+        <a class="btn" href="resources.html">Downloads &amp; resources <span class="btn__arrow">→</span></a>
+        <a class="btn btn--ghost" href="about.html">Team &amp; contact</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-`KULLANICIADIN.github.io` yerine `bugrahanguresci.com` gibi bir adres istersen:
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <div class="foot__brand"><span class="brand__tag"></span>BGMAD Coater</div>
+        <p style="max-width:34ch;margin:0">Automated micrometer-adjustable tape casting machine for NASICON solid-electrolyte green tapes. Mechanical Engineering capstone, Boğaziçi University, 2026.</p>
+      </div>
+      <div>
+        <h5>Project</h5>
+        <a href="background.html">Background</a>
+        <a href="engineering.html">Engineering</a>
+        <a href="electronics.html">Electronics</a>
+        <a href="manufacturing.html">Manufacturing</a>
+        <a href="results.html">Results</a>
+      </div>
+      <div>
+        <h5>More</h5>
+        <a href="resources.html">Downloads</a>
+        <a href="about.html">Team &amp; contact</a>
+        <a href="ME492_Report_Group17.pdf" target="_blank" rel="noopener">Full report (PDF)</a>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>© 2026 Buğrahan Güreşçi &amp; Muhammet Ali Doğan</span>
+      <span>Boğaziçi University · Dept. of Mechanical Engineering</span>
+    </div>
+  </div>
+</footer>
 
-1. Bir sağlayıcıdan domain al (Natro, Turhost, İsimtescil...). Fiyat: `.com` ilk yıl ~150–250 TL, yenileme ~350–550 TL/yıl; `.com.tr` ~120–200 TL/yıl.
-2. GitHub'ın güncel Pages IP adreslerini domain panelinde **A kaydı** olarak, `www` için **CNAME** olarak gir (GitHub'ın Pages dokümanında güncel IP listesi var; o an birlikte bakabiliriz).
-3. Depo → **Settings → Pages → Custom domain** alanına domain adını yaz, **Save**. "Enforce HTTPS"i işaretle.
-
-Domain zorunlu değil — `.github.io` adresi de CV'de gayet profesyonel durur, sonradan da eklenebilir.
-
----
-
-## 5. Yayından SONRA içerik güncelleme
-
-Bir yazıyı/görseli değiştirmek istediğinde iki yol var:
-
-- **Kolay yol (tarayıcıdan):** GitHub'da depoda ilgili dosyaya tıkla → sağ üstteki **kalem (✏️) ikonu** → düzenle → **Commit changes**. Site birkaç dakikada güncellenir.
-- **Yeni görsel eklemek:** `assets/img/` klasörüne yükle, sonra ilgili `.html`'de `<img src="assets/img/DOSYA_ADI">` satırını ekle/değiştir.
-
-### Renk veya font değiştirmek
-Tüm tasarım `assets/style.css` dosyasının en başındaki `:root{...}` bloğunda tanımlı. Örneğin amber vurgu rengini değiştirmek için `--signal:#E08A00;` satırındaki hex kodunu değiştir; tüm sitede otomatik güncellenir.
-
----
-
-## 6. Tasarım hakkında kısa not
-
-Site bilinçli olarak bir **hassas ölçüm cihazı / metroloji** estetiğiyle tasarlandı: grafit + teknik beyaz zemin, mühendislik çizimi etiketleri, ve sadece "canlı ölçüm" değerlerinde (mikron, sıcaklık, süre) kullanılan tek bir **amber sinyal rengi** — PID ısıtıcı göstergesine bir gönderme. Amaç, sıradan portfolyo şablonlarından ayrışıp projenin mühendislik ciddiyetini yansıtmak.
-
----
-
-## Sıradaki adım
-
-Site şu an tam çalışır durumda. Placeholder'ları (iletişim, CV, video) doldurup GitHub Pages'e yükleyince yayında olacak. Bundan sonra istediğimiz zaman birlikte:
-- yeni bölüm/sayfa ekleyebiliriz,
-- gerçek fotoğraf ve videolarla zenginleştirebiliriz,
-- İngilizce metinleri istediğin tona çekebiliriz,
-- ayrı bir "publications/notes" bölümü açabiliriz.
-
-Ne değiştirmek istersen söyle, üzerine gidelim.
+</body>
+</html>
