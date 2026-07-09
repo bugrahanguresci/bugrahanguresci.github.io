@@ -195,6 +195,7 @@ p{margin:0 0 1.1em}
 .card__idx{font-family:var(--f-mono);font-size:12px;color:var(--signal);
   letter-spacing:.08em}
 .card h3{margin-top:2px}
+.dark .card h3{color:var(--ink)}
 .card p{color:var(--ink-2);font-size:15.5px;margin:0}
 .card--link{transition:border-color .18s,transform .18s}
 .card--link:hover{border-color:var(--ink);transform:translateY(-2px)}
