@@ -207,6 +207,7 @@ p{margin:0 0 1.1em}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);
   align-items:center}
 .split--rev .split__media{order:2}
+.split--stack{grid-template-columns:1fr}
 .split__media{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
   background:var(--paper-2)}
 .split__media img{width:100%;object-fit:cover}
