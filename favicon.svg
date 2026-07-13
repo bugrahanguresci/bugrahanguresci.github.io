@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- Dark background (charcoal, matches site theme) -->
+  <rect width="48" height="48" fill="#15171C" rx="4"/>
+  
+  <!-- Text: BGMAD -->
+  <text x="24" y="32" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#EDEFF2" text-anchor="middle" letter-spacing="0.5">
+    BGMAD
+  </text>
+  
+  <!-- Accent line (amber, site signal color) -->
+  <line x1="8" y1="38" x2="40" y2="38" stroke="#FFB43D" stroke-width="2" stroke-linecap="round"/>
+</svg>
